@@ -4,6 +4,10 @@
  * Near Field Communication
  */
  
- void loop(){
-   
- }
+void setup() {
+
+}
+ 
+void loop(){
+    
+}
