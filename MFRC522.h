@@ -1,8 +1,10 @@
 /*
- * MFRC522
+ * MFRC522 for Arduino
  */
+ 
 #ifndef MFRC522_h
 #define MFRC522_h
+
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -10,36 +12,36 @@
 /*
  * 定义
  */
-#define MAX_LEN 16   // 数组最大长度
+#define     MAX_LEN               16                 // 数组最大长度
 
 // MFRC522命令字
-#define PCD_IDLE              0x00               // 无动作，取消当前命令
-#define PCD_AUTHENT           0x0E               // 验证密钥
-#define PCD_RECEIVE           0x08               // 接收数据
-#define PCD_TRANSMIT          0x04               // 发送数据
-#define PCD_TRANSCEIVE        0x0C               // 发送并接收数据
-#define PCD_RESETPHASE        0x0F               // 复位
-#define PCD_CALCCRC           0x03               // CRC计算
+#define     PCD_IDLE              0x00               // 无动作，取消当前命令
+#define     PCD_AUTHENT           0x0E               // 验证密钥
+#define     PCD_RECEIVE           0x08               // 接收数据
+#define     PCD_TRANSMIT          0x04               // 发送数据
+#define     PCD_TRANSCEIVE        0x0C               // 发送并接收数据
+#define     PCD_RESETPHASE        0x0F               // 复位
+#define     PCD_CALCCRC           0x03               // CRC计算
 
 // Mifare_One卡片命令字
-#define PICC_REQIDL           0x26               // 寻天线区内未进入休眠状态
-#define PICC_REQALL           0x52               // 寻天线区内全部卡
-#define PICC_ANTICOLL         0x93               // 防冲撞
-#define PICC_SElECTTAG        0x93               // 选卡
-#define PICC_AUTHENT1A        0x60               // 验证A密钥
-#define PICC_AUTHENT1B        0x61               // 验证B密钥
-#define PICC_READ             0x30               // 读块
-#define PICC_WRITE            0xA0               // 写块
-#define PICC_DECREMENT        0xC0               
-#define PICC_INCREMENT        0xC1               
-#define PICC_RESTORE          0xC2               // 调块数据到缓冲区
-#define PICC_TRANSFER         0xB0               // 保存缓冲区中数据
-#define PICC_HALT             0x50               // 休眠
- 
-//与MFRC522通讯时返回的错误代码
-#define MI_OK                 0
-#define MI_NOTAGERR           1
-#define MI_ERR                2
+#define     PICC_REQIDL           0x26               // 寻天线区内未进入休眠状态
+#define     PICC_REQALL           0x52               // 寻天线区内全部卡
+#define     PICC_ANTICOLL         0x93               // 防冲撞
+#define     PICC_SElECTTAG        0x93               // 选卡
+#define     PICC_AUTHENT1A        0x60               // 验证A密钥
+#define     PICC_AUTHENT1B        0x61               // 验证B密钥
+#define     PICC_READ             0x30               // 读块
+#define     PICC_WRITE            0xA0               // 写块
+#define     PICC_DECREMENT        0xC0               
+#define     PICC_INCREMENT        0xC1               
+#define     PICC_RESTORE          0xC2               // 调块数据到缓冲区
+#define     PICC_TRANSFER         0xB0               // 保存缓冲区中数据
+#define     PICC_HALT             0x50               // 休眠
+
+// 与MFRC522通讯时返回的错误代码
+#define     MI_OK                 0
+#define     MI_NOTAGERR           1
+#define     MI_ERR                2
 
 //------------------MFRC522寄存器---------------
 // Page 0:Command and Status
@@ -116,74 +118,76 @@
 //-----------------------------------------------
 
 class MFRC522 {
-  public:
-    // 构造
-	  MFRC522(int chipSelectPin, int NRSTPD);
+public:
+  // 构造
+  MFRC522(int chipSelectPin, int NRSTPD);
 
-    // 卡校验
-  	bool isCard();
-  	
-  	// 读卡序列号
-  	bool readCardSerial();
-  	
-  	// 卡初始化
-  	void init();
-  	
-  	// 卡重置
-  	void reset();
-  	
-  	// 设置掩码
-  	void setBitMask(unsigned char reg, unsigned char mask);
-  	
-  	// 清除掩码
-  	void clearBitMask(unsigned char reg, unsigned char mask);
-  	
-  	// 打开天线
-  	void antennaOn(void);
-  	
-  	// 关闭天线
-  	void antennaOff(void);
-  	
-  	// 计算CRC
-  	void calculateCRC(unsigned char *pIndata, unsigned char len, unsigned char *pOutData);
-  	
-  	// 写卡
-  	void writeMFRC522(unsigned char addr, unsigned char val);
-  	
-  	// 读卡
-  	unsigned char readMFRC522(unsigned char addr);
-  	
-  	
-  	unsigned char MFRC522Request(unsigned char reqMode, unsigned char *TagType);
-  	
-  	
-  	unsigned char MFRC522ToCard(unsigned char command, unsigned char *sendData, unsigned char sendLen, unsigned char *backData, unsigned int *backLen);
-  	
-  	
-  	unsigned char anticoll(unsigned char *serNum);
-  	
-  	
-  	// 授权
-  	unsigned char auth(unsigned char authMode, unsigned char BlockAddr, unsigned char *Sectorkey, unsigned char *serNum);
-  	
-  	// 读
-  	unsigned char read(unsigned char blockAddr, unsigned char *recvData);
-  	
-  	// 写
-  	unsigned char write(unsigned char blockAddr, unsigned char *writeData);
+//  // 卡校验
+//  bool isCard();
+//
+//  // 读卡序列号
+//  bool readCardSerial();
+//
+//  // 卡初始化
+//  void init();
+//
+//  // 卡重置
+//  void reset();
+//
+//  // 设置掩码
+//  void setBitMask(unsigned char reg, unsigned char mask);
+//
+//  // 清除掩码
+//  void clearBitMask(unsigned char reg, unsigned char mask);
+//
+//  // 打开天线
+//  void antennaOn(void);
+//
+//  // 关闭天线
+//  void antennaOff(void);
+//
+//  // 计算CRC
+//  void calculateCRC(unsigned char *pIndata, unsigned char len, unsigned char *pOutData);
+//
+  // 写卡
+  void writeMFRC522(unsigned char addr, unsigned char val);
+
+  // 读卡
+  unsigned char readMFRC522(unsigned char addr);
+//
+//  // 寻卡
+//  unsigned char MFRC522Request(unsigned char reqMode, unsigned char *tagType);
+//
+//  // RC522与ISO14443卡通讯
+//  unsigned char MFRC522ToCard(unsigned char command, unsigned char *sendData, unsigned char sendLen, unsigned char *backData, unsigned int *backLen);
+//
+//  // 防冲突检测
+//  unsigned char anticoll(unsigned char *serNum);
+//
+//  // 验证卡片密码
+//  unsigned char auth(unsigned char authMode, unsigned char blockAddr, unsigned char *sectorkey, unsigned char *serNum);
+//
+//  // 读块数据
+//  unsigned char read(unsigned char blockAddr, unsigned char *recvData);
+//
+//  // 写块数据
+//  unsigned char write(unsigned char blockAddr, unsigned char *writeData);
+//
+//  // 选卡，读取卡存储器容量
+//  unsigned char selectTag(unsigned char *serNum);
+//
+//  // 卡休眠
+//  void halt();
+//
+  // 4字节卡序列号，第5字节为校验字节
+  unsigned char serNum[5];
+
+private:
+  int _chipSelectPin;
+  int _NRSTPD;
   
-  
-  	unsigned char selectTag(unsigned char *serNum);
-  
-  
-  	void halt();
-  	       
-  	// 4字节卡序列号，第5字节为校验字节
-  	unsigned char serNum[5];
-	
-  private:
-  	int _chipSelectPin;
-  	int _NRSTPD;
 };
 
+
 #endif
+
